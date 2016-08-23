@@ -16,7 +16,7 @@ from datetime import datetime
 
 # Create your views here.
 def home(request):
-    posts = Article.objects.all()  #获取全部的Article对象
+    posts = Article.objects.all().order_by('-id')  #获取全部的Article对象
     paginator = Paginator(posts, 2) #每页显示两个
     page = request.GET.get('page')
     try :

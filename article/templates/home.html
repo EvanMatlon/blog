@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<h2 class="brand-tagline"></h2>
 
 {% load custom_markdown %}
 {% block content %}
@@ -26,20 +27,30 @@
                 <a class="pure-button" href="{% url 'detail' id=post.id %}">Read More >>> </a>
         </section>
     {% endfor %}
-
+    
+    <div class="pager-num">
     {% if post_list.object_list and post_list.paginator.num_pages > 1 %}
-      <div>
-      <ul class="pager">
+      <ul class="pure-paginator-custom" style="height: 43px; width: 700px;">
       {% if post_list.has_previous %}
-        <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
+        <li><a class="pure-button-custom prev" href="?page={{ post_list.previous_page_number }}">&#171;</a></li>
       {% endif %}
-
+      {% for p in post_list.paginator.page_range %}
+	 {% if p %}
+  	 	{% ifequal p post_list.number %}
+	    		<li><a class="pure-button-custom pure-button-custom-active" href="#">{{ p }}</a></li>
+	 	{% else %}
+	    		<li><a class="pure-button-custom" href="?page={{ p }}" title="{{ p }}">{{ p }}</a></li>
+	 	{% endifequal %}
+	 {% else %}
+		<li><a class="pure-button-custom" href="#">...</a></li>
+         {% endif %}
+      {% endfor %}  
       {% if post_list.has_next %}
-        <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
+        <li><a class="pure-button-custom  next"  href="?page={{ post_list.next_page_number }}">&#187;</a></li>
       {% endif %}
       </ul>
-      </div>
     {% endif %}
+    </div>
 </div><!-- /.blog-post -->
 {% endblock %}      
             
