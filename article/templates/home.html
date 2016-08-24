@@ -27,12 +27,15 @@
                 <a class="pure-button" href="{% url 'detail' id=post.id %}">Read More >>> </a>
         </section>
     {% endfor %}
-    
+</div><!-- /.blog-post -->
+
     <div class="pager-num">
     {% if post_list.object_list and post_list.paginator.num_pages > 1 %}
-      <ul class="pure-paginator-custom" style="height: 43px; width: 700px;">
+      <ul class="pure-paginator-custom" >
       {% if post_list.has_previous %}
-        <li><a class="pure-button-custom prev" href="?page={{ post_list.previous_page_number }}">&#171;</a></li>
+         <li><a class="pure-button-custom prev" href="?page={{ post_list.previous_page_number }}">&#171;</a></li>
+      {% else %}
+         <li class="disabled"><a class="pure-button-custom prev" href="javascript:return false">&#171;</a></li>
       {% endif %}
       {% for p in post_list.paginator.page_range %}
 	 {% if p %}
@@ -47,10 +50,12 @@
       {% endfor %}  
       {% if post_list.has_next %}
         <li><a class="pure-button-custom  next"  href="?page={{ post_list.next_page_number }}">&#187;</a></li>
+      {% else %}
+        <li class="disabled"><a class="pure-button-custom  next"  href="javascript:return false">&#187;</a></li>
+        
       {% endif %}
       </ul>
     {% endif %}
     </div>
-</div><!-- /.blog-post -->
 {% endblock %}      
             

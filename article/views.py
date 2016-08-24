@@ -19,6 +19,7 @@ def home(request):
     posts = Article.objects.all().order_by('-id')  #获取全部的Article对象
     paginator = Paginator(posts, 2) #每页显示两个
     page = request.GET.get('page')
+    
     try :
         post_list = paginator.page(page)
     except PageNotAnInteger :
